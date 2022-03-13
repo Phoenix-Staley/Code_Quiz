@@ -3,7 +3,7 @@ var secondsEl = document.querySelector(".seconds");
 var startEl = document.getElementById("startButton");
 secondsEl.textContent = timeSeconds;
 
-function setTime(event) {
+function startTimer(event) {
     var secondsLeft = timeSeconds;
 
     // Sets interval in variable
@@ -22,4 +22,4 @@ function setTime(event) {
     }, 1000);
   }
 
-startEl.addEventListener("click", setTime);
+startEl.addEventListener("click", startTimer);

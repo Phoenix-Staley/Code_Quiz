@@ -13,7 +13,8 @@ header > p {
 }
 
 .button {
-    padding: 15px;
+    padding: 5px 15px;
+    font-size: larger;
     background-color: plum;
     border-radius: 10px;
     margin: 15px auto;
