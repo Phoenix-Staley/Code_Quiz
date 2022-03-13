@@ -15,12 +15,42 @@ header > p {
 .button {
     padding: 5px 15px;
     font-size: larger;
-    background-color: plum;
+    background-color: #222222;
+    color: white;
     border-radius: 10px;
     margin: 15px auto;
+    display: block;
+}
+
+.button:hover {
+    background-color: #444444;
 }
 
 .content {
-    display: flex;
-    align-items: center;
+    text-align: center;
+}
+
+.title {
+    font-size: xx-large;
+    font-weight: bold;
+    margin: 15px auto;
+    width: 50%;
+    display: block;
+}
+
+.description {
+    margin: 15px auto;
+    width: 30%;
+    font-size: large;
+    display: block;
+}
+
+.highscores {
+    border-width: 1px;
+    border-style: dotted;
+    background-color: transparent;
+}
+
+.highscores:hover {
+    background-color: lightgrey;
 }
