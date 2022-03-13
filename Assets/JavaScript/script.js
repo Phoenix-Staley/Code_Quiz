@@ -1,16 +1,25 @@
 var timeSeconds = 60;
 var secondsEl = document.querySelector(".seconds");
-var startEl = document.getElementById("#startButton");
+var startEl = document.getElementById("startButton");
 secondsEl.textContent = timeSeconds;
 
-var timerInterval = function() { setInterval(function(event) {
-    secondsEl.textContent = i;
+function setTime(event) {
+    var secondsLeft = timeSeconds;
 
-    if (i === 0) {
-        secondsEl.textContent = "Times up!";
-    }
-}, 1000)};
+    // Sets interval in variable
+    var timerInterval = setInterval(function() {
+      secondsLeft--;
+      console.log(secondsLeft);
+      secondsEl.textContent = secondsLeft;
+  
+      if(secondsLeft === 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);
+        // Calls function to create and append image
+        sendMessage();
+      }
+  
+    }, 1000);
+  }
 
-console.log(secondsEl);
-
-secondsEl.addEventListener("click", timerInterval);
+startEl.addEventListener("click", setTime);
