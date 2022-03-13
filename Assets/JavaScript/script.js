@@ -1,10 +1,10 @@
-var timeSeconds = 60;
+var timerLength = 60;
 var secondsEl = document.querySelector(".seconds");
 var startEl = document.getElementById("startButton");
-secondsEl.textContent = timeSeconds;
+secondsEl.textContent = timerLength;
 
-function startTimer(event) {
-    var secondsLeft = timeSeconds;
+function startTimer() {
+    var secondsLeft = timerLength;
 
     // Sets interval in variable
     var timerInterval = setInterval(function() {
