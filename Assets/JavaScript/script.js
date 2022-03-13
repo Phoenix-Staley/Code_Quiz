@@ -9,7 +9,6 @@ function startTimer(event) {
     // Sets interval in variable
     var timerInterval = setInterval(function() {
       secondsLeft--;
-      console.log(secondsLeft);
       secondsEl.textContent = secondsLeft;
   
       if(secondsLeft === 0) {
