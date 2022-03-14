@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: #444444;
+    background-color: #222222;
 }
 
 header {
@@ -28,7 +28,17 @@ header > p {
 }
 
 .button:hover {
-    background-color: #222222;
+    background-color: #333333;
+}
+
+#buttonHolder {
+    margin: auto;
+    width: 25%;
+    text-align: right;
+}
+
+#buttonHolder button {
+    margin-left: 0;
 }
 
 .content {
@@ -54,8 +64,9 @@ header > p {
     border-width: 1px;
     border-style: dotted;
     background-color: transparent;
+    padding-bottom: 3px;
 }
 
 .highscores:hover {
-    background-color: lightgrey;
+    background-color: #333333;
 }
