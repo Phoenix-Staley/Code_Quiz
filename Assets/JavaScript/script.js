@@ -1,6 +1,6 @@
-// 1. Define variables for the elements to be used, the length of a game, and an object of the questions and answers
-// 2. Define the function that will run upon starting the game
-// 3. Create a timer interval that counts down
+// 1. Define variables for the elements to be used, the length of a game, and an object of the questions and answers ✅
+// 2. Create a timer interval that counts down ✅
+// 3. Define the function that will run upon starting the game
 // 4. Make the description element empty
 // 4. Define a variable for current question number
 // 5. Change title to current question
@@ -16,12 +16,21 @@
 var timerLength = 60;
 var secondsEl = document.querySelector(".seconds");
 var startEl = document.getElementById("startButton");
+var headerEl = document.querySelector(".title");
+var descriptionEl = document.querySelector(".description");
+var buttonHolderEl = document.getElementById("buttonHolder");
 secondsEl.textContent = timerLength;
 
 var questionsAndAnswers = {
-    questions: ["What variable does JavaScript use to hold numeric values?", "Commonly used data types DO NOT include..."],
-    answers: [["int", "string", "number", "float", 2], ["alert", "boolean", "number", "object", 0]]
+    questions: ["Strings must be enclosed within...", "What variable does JavaScript use to hold numeric values?", "Commonly used data types DO NOT include...", "The condition for an if / else statement is written between..."],
+    options: [["Pipes ||", "Curly braces {}", "Quotation Marks \" \"", "Square brackets []"], ["int", "string", "number", "float"], ["alert", "boolean", "number", "object"], ["Curly braces {}", "Square brackets []", "Quotation marks \" \"", "Parantheses ()"]],
+    correctAnswers: [2, 2, 0, 3]
 };
+
+function clearScreen() {
+    descriptionEl.textContent = "";
+    headerEl.textContent = "";
+}
 
 function startGame() {
     var secondsLeft = timerLength;
@@ -39,8 +48,6 @@ function startGame() {
       }
   
     }, 1000);
-
-    console.log("Hi!");
 }
 
 startEl.addEventListener("click", startGame);

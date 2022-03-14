@@ -1,5 +1,10 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+body {
+    background-color: #444444;
 }
 
 header {
@@ -15,7 +20,7 @@ header > p {
 .button {
     padding: 5px 15px;
     font-size: larger;
-    background-color: #222222;
+    background-color: #000000;
     color: white;
     border-radius: 10px;
     margin: 15px auto;
@@ -23,7 +28,7 @@ header > p {
 }
 
 .button:hover {
-    background-color: #444444;
+    background-color: #222222;
 }
 
 .content {
