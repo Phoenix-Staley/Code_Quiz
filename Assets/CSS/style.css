@@ -74,6 +74,7 @@ header > p {
 .inputBox {
     margin: 5px;
     display: inline-block;
+    color: black;
 }
 
 button.submit {
