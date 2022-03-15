@@ -51,14 +51,14 @@ header > p {
     display: block;
 }
 
-.highScores {
+.highScoresButton {
     border-width: 1px;
     border-style: dotted;
     background-color: transparent;
     padding-bottom: 3px;
 }
 
-.highScores:hover {
+.highScoresButton:hover {
     background-color: #333333;
 }
 
