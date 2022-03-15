@@ -9,6 +9,7 @@
 // 7b. Define function for going to the next question ✅
 //      Use a for loop to create buttons for possible answers, using an if statement to check if the current button will be the correct answer or not ✅
 // 7c. Define function for when the game ends that reacts based on how the game ended ✅
+// 7c1. Render a "play again" button
 // 8. Replace the buttons with the score and an input box for the user's name
 // 9. Record the user's name and score as an array of objects that hold the user's name and their score
 // 10. Store scores in local storage
@@ -64,6 +65,13 @@ function startGame() {
     } else {
       endMessage = "You answered " + score + " questions correctly."
     }
+
+    // Renders a button to play again
+    var buttonEl = document.createElement("button");
+    buttonEl.innerHTML = "Play again";
+    buttonEl.classList.add("button");
+    buttonEl.onclick = startGame;
+    buttonHolderEl.appendChild(buttonEl);
 
     descriptionEl.textContent = endMessage;
   }
