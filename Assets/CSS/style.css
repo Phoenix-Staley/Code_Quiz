@@ -10,11 +10,12 @@ body {
 header {
     display: flex;
     justify-content: space-between; 
+    margin-bottom: 15%;
 }
 
 header > p {
     display: inline-block;
-    margin: 10px 5px;
+    margin: 10px;
 }
 
 .button {
@@ -23,22 +24,12 @@ header > p {
     background-color: #000000;
     color: white;
     border-radius: 10px;
-    margin: 15px auto;
+    margin: 25px auto;
     display: block;
 }
 
 .button:hover {
     background-color: #333333;
-}
-
-#buttonHolder {
-    margin: auto;
-    width: 25%;
-    text-align: right;
-}
-
-#buttonHolder button {
-    margin-left: 0;
 }
 
 .content {
@@ -84,4 +75,35 @@ button.submit {
     padding: 1px;
     font-size: medium;
     border-radius: 5px;
+}
+
+#buttonHolder {
+    margin: auto;
+    width: 25%;
+    text-align: right;
+}
+
+#buttonHolder button {
+    margin-left: 0;
+}
+
+@media screen and (max-width: 992px) {
+    .title {
+        width: 75%;
+        font-size: x-larger;
+    }
+
+    .description {
+        width: 50%;
+        font-size: large;
+    }
+
+    .button {
+        padding: 5px;
+        font-size: medium;
+    }
+
+    #buttonHolder {
+        width: 50%;
+    }
 }
