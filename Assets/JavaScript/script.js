@@ -14,7 +14,7 @@
 // 9. Record the user's name and score as an array of objects that hold the user's name and their score
 // 10. Store scores in local storage
 // 11. Sort scores using .sort or .reduce
-// 12. Make highscores appear in order of time completed when pressing the highscores button
+// 12. Make high scores appear in order of time completed when pressing the high scores button
 
 var timerLength = 60;
 var secondsEl = document.querySelector(".seconds");
@@ -127,7 +127,7 @@ function startGame() {
     headerEl.textContent = headerMessage;    
 
     function storeScore() {
-      var scoresArray = JSON.parse(localStorage.getItem("highscores"));
+      var scoresArray = JSON.parse(localStorage.getItem("highScores"));
 
       if (scoresArray === null) {
         scoresArray = [];
@@ -140,7 +140,7 @@ function startGame() {
 
       scoresArray.push(currentScore);
       scoresArray.sort((a, b) => {return b.storedScore - a.storedScore;});
-      localStorage.setItem("highscores", JSON.stringify(scoresArray));
+      localStorage.setItem("highScores", JSON.stringify(scoresArray));
 
       inputEl.disabled = true;
     }

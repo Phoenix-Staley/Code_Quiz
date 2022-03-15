@@ -60,14 +60,14 @@ header > p {
     display: block;
 }
 
-.highscores {
+.highScores {
     border-width: 1px;
     border-style: dotted;
     background-color: transparent;
     padding-bottom: 3px;
 }
 
-.highscores:hover {
+.highScores:hover {
     background-color: #333333;
 }
 
