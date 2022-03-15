@@ -37,8 +37,8 @@ function clearScreen() {
   if (startEl) {
     startEl.remove();
   }
-  if (document.querySelector(".content .button")) {
-    document.querySelector(".content .button").remove();
+  if (document.querySelector("button#againButton")) {
+    document.querySelector("button#againButton").remove();
   }
 
   while (buttonHolderEl.firstChild) {
@@ -115,14 +115,37 @@ function startGame() {
   }
 
   function endGame(headerMessage) {
+    var endMessage = "";
+    var secondsUsed = timerLength-secondsLeft;
+    var buttonEl = document.createElement("button");
+    var inputEl = document.createElement("input");
+    var submitEl = document.createElement("button");
+    
     isRunning = false;
     clearScreen();
     clearInterval(timerInterval);
-    headerEl.textContent = headerMessage;
+    headerEl.textContent = headerMessage;    
+
+    function storeScore() {
+      var scoresArray = JSON.parse(localStorage.getItem("highscores"));
+
+      if (scoresArray === null) {
+        scoresArray = [];
+      }
+
+      var currentScore = {
+        name: inputEl.value,
+        storedScore: score
+      };
+
+      scoresArray.push(currentScore);
+      scoresArray.sort((a, b) => {return b.storedScore - a.storedScore;});
+      localStorage.setItem("highscores", JSON.stringify(scoresArray));
+
+      inputEl.disabled = true;
+    }
 
     // Dynamically changes the end game message based on score and whether time ran out
-    var endMessage = "";
-    var secondsUsed = timerLength-secondsLeft;
     if (score === 1 && secondsLeft > 0) {
       endMessage = "You answered " + score + " question correctly in " + secondsUsed + " seconds.";
     } else if (score === 1) {
@@ -134,19 +157,16 @@ function startGame() {
     }
 
     // Renders a button to play again and an input for the user's name
-    var buttonEl = document.createElement("button");
-    var inputEl = document.createElement("input");
-    var submitEl = document.createElement("button");
-    console.log([buttonEl, inputEl, submitEl]);
     buttonEl.textContent = "Play again";
     inputEl.placeholder = "Jane Doe";
-    submitEl.textContent = "Sumbit";
+    submitEl.textContent = "Record score";
     buttonEl.classList.add("button");
     inputEl.classList.add("inputBox");
     submitEl.classList.add("submit");
     submitEl.classList.add("button");
+    buttonEl.id = "againButton";
     buttonEl.onclick = startGame;
-    // submitEl.onclick = storeScore;
+    submitEl.onclick = storeScore;
     contentEl.appendChild(buttonEl);
     buttonHolderEl.appendChild(inputEl);
     buttonHolderEl.appendChild(submitEl);
