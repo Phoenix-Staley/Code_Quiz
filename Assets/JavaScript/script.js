@@ -14,21 +14,23 @@
 // 9. Record the user's name and score as an array of objects that hold the user's name and their score ✅
 // 10. Store scores in local storage ✅
 // 11. Sort scores using .sort ✅
-// 12. Make high scores appear in order of time completed when pressing the high scores button
+// 12. Make high scores appear in order of time completed when pressing the high scores button ✅
 
 var timerLength = 60;
 var secondsEl = document.querySelector(".seconds");
+var highScoresEl = document.querySelector(".highScoresButton");
 var startEl = document.getElementById("startButton");
 var contentEl = document.querySelector(".content");
 var headerEl = document.querySelector(".title");
 var descriptionEl = document.querySelector(".description");
-var buttonHolderEl = document.getElementById("buttonHolder");
+var holderEl = document.getElementById("holder");
+var isRunning = false;
 secondsEl.textContent = timerLength;
 
 var questionsAndAnswers = {
-  questions: ["Strings must be enclosed within...", "What variable does JavaScript use to hold numeric values?", "Commonly used data types DO NOT include...", "The condition for an if / else statement is written between..."],
-  options: [["Pipes | |", "Curly braces { }", "Quotation Marks \" \"", "Square brackets [ ]"], ["int", "string", "number", "float"], ["alert", "boolean", "number", "object"], ["Curly braces { }", "Square brackets [ ]", "Quotation marks \" \"", "Parantheses ( )"]],
-  correctAnswers: [2, 2, 0, 3]
+  questions: ["Strings must be enclosed within...", "What variable does JavaScript use to hold numeric values?", "Commonly used data types DO NOT include...", "The condition for an if / else statement is written between...", "TRUE OR FALSE: \"10\" == 10"],
+  options: [["Pipes | |", "Curly braces { }", "Quotation Marks \" \"", "Square brackets [ ]"], ["int", "string", "number", "float"], ["alert", "boolean", "number", "object"], ["Curly braces { }", "Square brackets [ ]", "Quotation marks \" \"", "Parantheses ( )"], ["True", "False"]],
+  correctAnswers: [2, 2, 0, 3, 0]
 };
 
 function clearScreen() {
@@ -41,16 +43,35 @@ function clearScreen() {
     document.querySelector("button#againButton").remove();
   }
 
-  while (buttonHolderEl.firstChild) {
-    buttonHolderEl.removeChild(buttonHolderEl.firstChild);
+  while (holderEl.firstChild) {
+    holderEl.removeChild(holderEl.firstChild);
+  }
+}
+
+function displayScores() {
+  if (isRunning) {
+    alert("You can't view scores during the quiz.");
+  } else {
+    var scores = JSON.parse(localStorage.getItem("highScores"));
+
+    clearScreen();
+    headerEl.textContent = "High Scores";
+
+    for (let i = 0; i < 5; i++) {
+      var text = i+1 + ". " + scores[i].name + " - " + scores[i].storedScore;
+      var scoreEl = document.createElement("h3");
+      scoreEl.innerHTML = text;
+      scoreEl.classList.add("highScore");
+      holderEl.appendChild(scoreEl);
+    }
   }
 }
 
 function startGame() {
   var secondsLeft = timerLength;
   var currentQuestion = 0;
-  var isRunning = true;
   var score = 0;
+  isRunning = true;
 
   function rightAnswer() {
     var correctEl = onAnswer();
@@ -79,7 +100,7 @@ function startGame() {
           var buttonEl = document.createElement("button");
           buttonEl.innerHTML = text;
           buttonEl.classList.add("button");
-          buttonHolderEl.appendChild(buttonEl);
+          holderEl.appendChild(buttonEl);
           
           if (i === questionsAndAnswers.correctAnswers[currentQuestion])  {
             buttonEl.onclick = rightAnswer;
@@ -96,9 +117,9 @@ function startGame() {
   function onAnswer() {
     // Creates a header to display whether the user's answer was correct
     var correctnessEl = document.createElement("h3");
-    buttonHolderEl.appendChild(correctnessEl);
+    holderEl.appendChild(correctnessEl);
 
-    var nodes = buttonHolderEl.childNodes;
+    var nodes = holderEl.childNodes;
 
     // Removes functionality of the buttons after the first answer
     for (let i = 0; i < nodes.length; i++) {
@@ -158,19 +179,22 @@ function startGame() {
 
     // Renders a button to play again and an input for the user's name
     buttonEl.textContent = "Play again";
-    inputEl.placeholder = "Jane Doe";
-    submitEl.textContent = "Record score";
     buttonEl.classList.add("button");
-    inputEl.classList.add("inputBox");
-    submitEl.classList.add("submit");
-    submitEl.classList.add("button");
     buttonEl.id = "againButton";
     buttonEl.onclick = startGame;
+
+    inputEl.placeholder = "Jane Doe";
+    inputEl.classList.add("inputBox");
+
+    submitEl.textContent = "Record score";
+    submitEl.classList.add("submit");
+    submitEl.classList.add("button");
     submitEl.onclick = storeScore;
+
     contentEl.appendChild(buttonEl);
-    buttonHolderEl.appendChild(inputEl);
-    buttonHolderEl.appendChild(submitEl);
-    buttonHolderEl.style.textAlign = "center";
+    holderEl.appendChild(inputEl);
+    holderEl.appendChild(submitEl);
+    holderEl.style.textAlign = "center";
 
     descriptionEl.textContent = endMessage;
   }
@@ -193,4 +217,5 @@ function startGame() {
   loadQuestion();
 }
 
+highScoresEl.addEventListener("click", displayScores);
 startEl.addEventListener("click", startGame);
