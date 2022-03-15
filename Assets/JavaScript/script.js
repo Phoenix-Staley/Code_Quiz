@@ -19,7 +19,6 @@
 var timerLength = 60;
 var secondsEl = document.querySelector(".seconds");
 var highScoresEl = document.querySelector(".highScoresButton");
-var startEl = document.getElementById("startButton");
 var contentEl = document.querySelector(".content");
 var headerEl = document.querySelector(".title");
 var descriptionEl = document.querySelector(".description");
@@ -36,8 +35,8 @@ var questionsAndAnswers = {
 function clearScreen() {
   descriptionEl.textContent = "";
   headerEl.textContent = "";
-  if (startEl) {
-    startEl.remove();
+  if (document.getElementById("startButton")) {
+    document.getElementById("startButton").remove();
   }
   if (document.querySelector("#againButton")) {
     document.querySelector("#againButton").remove();
@@ -60,7 +59,7 @@ function displayScores() {
     clearScreen();
     headerEl.textContent = "High Scores";
 
-    // Displays top 5 scores
+    // Displays top 5 or fewer scores
     if (scores.length >= 5) {
       for (let i = 0; i < 5; i++) {
         var text = i+1 + ". " + scores[i].name + " - " + scores[i].storedScore;
@@ -88,6 +87,12 @@ function displayScores() {
       headerEl.textContent = "JavaScript Code Quiz";
       descriptionEl.textContent = "This timed quiz will ask you various questions about JavaScript. \
         The faster you complete the quiz, and the more answers you get right, the higher your score will be. Good luck!";
+      var startButtonEl = document.createElement("button");
+      startButtonEl.textContent = "Start";
+      startButtonEl.classList.add("button");
+      startButtonEl.id = "startButton";
+      startButtonEl.onclick = startGame;
+      contentEl.appendChild(startButtonEl);
     };
     contentEl.appendChild(buttonEl);
   }
@@ -108,8 +113,14 @@ function startGame() {
 
   function wrongAnswer() {
     var incorrectEl = onAnswer();
-    incorrectEl.innerHTML = "Incorrect!";
+    var timeLost = 10;
+    incorrectEl.innerHTML = "Incorrect! You lose <strong>" + timeLost + " seconds</strong>";
     currentQuestion += 1;
+    if (secondsLeft <= timeLost) {
+      secondsLeft = 1;
+    } else {
+      secondsLeft -= timeLost;
+    }
   }
 
   function loadQuestion() {
@@ -156,7 +167,7 @@ function startGame() {
     var loadDelay = setInterval(function() {
       loadQuestion();
       clearInterval(loadDelay);
-    }, 1000);
+    }, 1500);
 
     return correctnessEl;
   }
@@ -194,11 +205,11 @@ function startGame() {
 
     // Dynamically changes the end game message based on score and whether time ran out
     if (score === 1 && secondsLeft > 0) {
-      endMessage = "You answered " + score + " question correctly in " + secondsUsed + " seconds.";
+      endMessage = "You answered " + score + " question correctly with " + secondsLeft + " seconds left.";
     } else if (score === 1) {
       endMessage = "You answered " + score + " question correctly."
     } else if (secondsLeft > 0) {
-      endMessage = "You answered " + score + " questions correctly in " + secondsUsed + " seconds.";
+      endMessage = "You answered " + score + " questions correctly with " + secondsLeft + " seconds left.";
     } else {
       endMessage = "You answered " + score + " questions correctly."
     }
@@ -244,4 +255,4 @@ function startGame() {
 }
 
 highScoresEl.addEventListener("click", displayScores);
-startEl.addEventListener("click", startGame);
+document.getElementById("startButton").addEventListener("click", startGame);
