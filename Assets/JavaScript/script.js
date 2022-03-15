@@ -10,8 +10,10 @@
 //      Use a for loop to create buttons for possible answers, using an if statement to check if the current button will be the correct answer or not ✅
 // 7c. Define function for when the game ends that reacts based on how the game ended ✅
 // 8. Replace the buttons with the score and an input box for the user's name
-// 9. Record the user's name and score as a string in an array
-// 10. Make highscores appear in order of time completed when pressing the highscores button
+// 9. Record the user's name and score as an array of objects that hold the user's name and their score
+// 10. Store scores in local storage
+// 11. Sort scores using .sort or .reduce
+// 12. Make highscores appear in order of time completed when pressing the highscores button
 
 var timerLength = 60;
 var secondsEl = document.querySelector(".seconds");
@@ -37,7 +39,7 @@ function clearScreen() {
   while (buttonHolderEl.firstChild) {
     buttonHolderEl.removeChild(buttonHolderEl.firstChild);
   }
-}
+};
 
 function startGame() {
   var secondsLeft = timerLength;
@@ -52,12 +54,13 @@ function startGame() {
     headerEl.textContent = headerMessage;
 
     var endMessage = "";
+    var secondsUsed = timerLength-secondsLeft;
     if (score === 1 && secondsLeft > 0) {
-      endMessage = "You answered " + score + " question correctly in " + (60-secondsLeft) + " seconds.";
+      endMessage = "You answered " + score + " question correctly in " + secondsUsed + " seconds.";
     } else if (score === 1) {
       endMessage = "You answered " + score + " question correctly."
     } else if (secondsLeft > 0) {
-      endMessage = "You answered " + score + " questions correctly in " + (60-secondsLeft) + " seconds.";
+      endMessage = "You answered " + score + " questions correctly in " + secondsUsed + " seconds.";
     } else {
       endMessage = "You answered " + score + " questions correctly."
     }
