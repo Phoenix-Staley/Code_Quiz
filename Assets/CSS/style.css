@@ -77,13 +77,19 @@ button.submit {
     border-radius: 5px;
 }
 
-#buttonHolder {
-    margin: auto;
-    width: 25%;
-    text-align: right;
+.highScore {
+    font-size: x-large;
+    color: #aa22ff;
+    padding: 10px;
 }
 
-#buttonHolder button {
+#holder {
+    margin: auto;
+    width: 25%;
+    text-align: center;
+}
+
+#holder button {
     margin-left: 0;
 }
 
