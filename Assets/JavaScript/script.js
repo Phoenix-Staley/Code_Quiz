@@ -9,7 +9,7 @@
 // 7b. Define function for going to the next question ✅
 //      Use a for loop to create buttons for possible answers, using an if statement to check if the current button will be the correct answer or not ✅
 // 7c. Define function for when the game ends that reacts based on how the game ended ✅
-// 7c1. Render a "play again" button
+// 7c1. Render a "play again" button ✅
 // 8. Replace the buttons with the score and an input box for the user's name
 // 9. Record the user's name and score as an array of objects that hold the user's name and their score
 // 10. Store scores in local storage
@@ -19,6 +19,7 @@
 var timerLength = 60;
 var secondsEl = document.querySelector(".seconds");
 var startEl = document.getElementById("startButton");
+var contentEl = document.querySelector(".content");
 var headerEl = document.querySelector(".title");
 var descriptionEl = document.querySelector(".description");
 var buttonHolderEl = document.getElementById("buttonHolder");
@@ -40,84 +41,13 @@ function clearScreen() {
   while (buttonHolderEl.firstChild) {
     buttonHolderEl.removeChild(buttonHolderEl.firstChild);
   }
-};
+}
 
 function startGame() {
   var secondsLeft = timerLength;
   var currentQuestion = 0;
   var isRunning = true;
   var score = 0;
-
-  function endGame(headerMessage) {
-    isRunning = false;
-    clearScreen();
-    clearInterval(timerInterval);
-    headerEl.textContent = headerMessage;
-
-    var endMessage = "";
-    var secondsUsed = timerLength-secondsLeft;
-    if (score === 1 && secondsLeft > 0) {
-      endMessage = "You answered " + score + " question correctly in " + secondsUsed + " seconds.";
-    } else if (score === 1) {
-      endMessage = "You answered " + score + " question correctly."
-    } else if (secondsLeft > 0) {
-      endMessage = "You answered " + score + " questions correctly in " + secondsUsed + " seconds.";
-    } else {
-      endMessage = "You answered " + score + " questions correctly."
-    }
-
-    // Renders a button to play again
-    var buttonEl = document.createElement("button");
-    buttonEl.innerHTML = "Play again";
-    buttonEl.classList.add("button");
-    buttonEl.onclick = startGame;
-    buttonHolderEl.appendChild(buttonEl);
-
-    descriptionEl.textContent = endMessage;
-  }
-
-  function loadQuestion() {
-    if (isRunning) {
-      clearScreen();
-      if (currentQuestion < questionsAndAnswers.questions.length) {
-        headerEl.textContent = questionsAndAnswers.questions[currentQuestion];
-  
-        for (let i = 0; i < questionsAndAnswers.options[currentQuestion].length; i++) {
-          var text = i+1 + ". " + questionsAndAnswers.options[currentQuestion][i];
-          var buttonEl = document.createElement("button");
-          buttonEl.innerHTML = text;
-          buttonEl.classList.add("button");
-          buttonHolderEl.appendChild(buttonEl);
-    
-          if (i === questionsAndAnswers.correctAnswers[currentQuestion])  {
-            buttonEl.onclick = rightAnswer;
-          } else {
-            buttonEl.onclick = wrongAnswer;
-          }
-        }
-      } else {
-        endGame("Congrats!")
-      }
-    }
-  }
-
-  function onAnswer() {
-    var correctnessEl = document.createElement("h3");
-    buttonHolderEl.appendChild(correctnessEl);
-
-    var nodes = buttonHolderEl.childNodes;
-
-    for (let i = 0; i < nodes.length; i++) {
-      nodes[i].onclick = function() {};
-    }
-
-    var loadDelay = setInterval(function() {
-      loadQuestion();
-      clearInterval(loadDelay);
-    }, 2000);
-
-    return correctnessEl;
-  }
 
   function rightAnswer() {
     var correctEl = onAnswer();
@@ -132,6 +62,95 @@ function startGame() {
     currentQuestion += 1;
   }
 
+  function loadQuestion() {
+    if (isRunning) {
+      clearScreen();
+
+      // Checks if there are questions left
+      if (currentQuestion < questionsAndAnswers.questions.length) {
+        headerEl.textContent = questionsAndAnswers.questions[currentQuestion];
+        
+        // Creates a button for each answer option
+        for (let i = 0; i < questionsAndAnswers.options[currentQuestion].length; i++) {
+          var text = i+1 + ". " + questionsAndAnswers.options[currentQuestion][i];
+          var buttonEl = document.createElement("button");
+          buttonEl.innerHTML = text;
+          buttonEl.classList.add("button");
+          buttonHolderEl.appendChild(buttonEl);
+          
+          if (i === questionsAndAnswers.correctAnswers[currentQuestion])  {
+            buttonEl.onclick = rightAnswer;
+          } else {
+            buttonEl.onclick = wrongAnswer;
+          }
+        }
+      } else {
+        endGame("Congrats!")
+      }
+    }
+  }
+
+  function onAnswer() {
+    // Creates a header to display whether the user's answer was correct
+    var correctnessEl = document.createElement("h3");
+    buttonHolderEl.appendChild(correctnessEl);
+
+    var nodes = buttonHolderEl.childNodes;
+
+    // Removes functionality of the buttons after the first answer
+    for (let i = 0; i < nodes.length; i++) {
+      nodes[i].onclick = function() {};
+    }
+
+    // Loads the next question after 1 second
+    var loadDelay = setInterval(function() {
+      loadQuestion();
+      clearInterval(loadDelay);
+    }, 1000);
+
+    return correctnessEl;
+  }
+
+  function endGame(headerMessage) {
+    isRunning = false;
+    clearScreen();
+    clearInterval(timerInterval);
+    headerEl.textContent = headerMessage;
+
+    // Dynamically changes the end game message based on score and whether time ran out
+    var endMessage = "";
+    var secondsUsed = timerLength-secondsLeft;
+    if (score === 1 && secondsLeft > 0) {
+      endMessage = "You answered " + score + " question correctly in " + secondsUsed + " seconds.";
+    } else if (score === 1) {
+      endMessage = "You answered " + score + " question correctly."
+    } else if (secondsLeft > 0) {
+      endMessage = "You answered " + score + " questions correctly in " + secondsUsed + " seconds.";
+    } else {
+      endMessage = "You answered " + score + " questions correctly."
+    }
+
+    // Renders a button to play again and an input for the user's name
+    var buttonEl = document.createElement("button");
+    var inputEl = document.createElement("input");
+    var submitEl = document.createElement("button");
+    console.log([buttonEl, inputEl, submitEl]);
+    buttonEl.textContent = "Play again";
+    inputEl.placeholder = "Jane Doe";
+    submitEl.textContent = "Sumbit";
+    buttonEl.classList.add("button");
+    inputEl.classList.add("inputBox");
+    submitEl.classList.add("submit");
+    buttonEl.onclick = startGame;
+    // submitEl.onclick = storeScore;
+    contentEl.appendChild(buttonEl);
+    buttonHolderEl.appendChild(inputEl);
+    buttonHolderEl.appendChild(submitEl);
+
+    descriptionEl.textContent = endMessage;
+  }
+
+  // Starts the time and loads the first question
   var timerInterval = setInterval(function() {
     secondsLeft--;
     secondsEl.textContent = secondsLeft;
@@ -146,7 +165,6 @@ function startGame() {
       isRunning = false;
     }
   }, 1000);
-
   loadQuestion();
 }
 

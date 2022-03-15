@@ -70,3 +70,20 @@ header > p {
 .highscores:hover {
     background-color: #333333;
 }
+
+.inputBox {
+    margin: 5px;
+    display: inline-block;
+}
+
+button.submit {
+    display: inline-block;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #111111;
+    padding-bottom: 3px;
+}
+
+button.submit:hover {
+    background-color: #333333;
+}
