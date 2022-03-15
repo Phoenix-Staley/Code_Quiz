@@ -10,10 +10,10 @@
 //      Use a for loop to create buttons for possible answers, using an if statement to check if the current button will be the correct answer or not ✅
 // 7c. Define function for when the game ends that reacts based on how the game ended ✅
 // 7c1. Render a "play again" button ✅
-// 8. Replace the buttons with the score and an input box for the user's name
-// 9. Record the user's name and score as an array of objects that hold the user's name and their score
-// 10. Store scores in local storage
-// 11. Sort scores using .sort or .reduce
+// 8. Replace the buttons with the score and an input box for the user's name ✅
+// 9. Record the user's name and score as an array of objects that hold the user's name and their score ✅
+// 10. Store scores in local storage ✅
+// 11. Sort scores using .sort ✅
 // 12. Make high scores appear in order of time completed when pressing the high scores button
 
 var timerLength = 60;
