@@ -37,6 +37,9 @@ function clearScreen() {
   if (startEl) {
     startEl.remove();
   }
+  if (document.querySelector(".content .button")) {
+    document.querySelector(".content .button").remove();
+  }
 
   while (buttonHolderEl.firstChild) {
     buttonHolderEl.removeChild(buttonHolderEl.firstChild);
