@@ -81,12 +81,7 @@ button.submit {
     display: inline-block;
     border-width: 1px;
     border-style: solid;
-    background-color: #111111;
     padding: 1px;
     font-size: medium;
     border-radius: 5px;
-}
-
-button.submit:hover {
-    background-color: #333333;
 }
