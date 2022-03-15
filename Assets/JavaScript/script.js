@@ -144,11 +144,13 @@ function startGame() {
     buttonEl.classList.add("button");
     inputEl.classList.add("inputBox");
     submitEl.classList.add("submit");
+    submitEl.classList.add("button");
     buttonEl.onclick = startGame;
     // submitEl.onclick = storeScore;
     contentEl.appendChild(buttonEl);
     buttonHolderEl.appendChild(inputEl);
     buttonHolderEl.appendChild(submitEl);
+    buttonHolderEl.style.textAlign = "center";
 
     descriptionEl.textContent = endMessage;
   }
