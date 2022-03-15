@@ -28,7 +28,7 @@ var isRunning = false;
 secondsEl.textContent = timerLength;
 
 var questionsAndAnswers = {
-  questions: ["Strings must be enclosed within...", "What variable does JavaScript use to hold numeric values?", "Commonly used data types DO NOT include...", "The condition for an if / else statement is written between...", "TRUE OR FALSE: \"10\" == 10"],
+  questions: ["Strings must be enclosed within...", "What variable does JavaScript use to hold numeric values?", "Commonly used data types DO NOT include...", "The condition for an if / else statement is written between...", "TRUE OR FALSE: \"10\" !== 10"],
   options: [["Pipes | |", "Curly braces { }", "Quotation Marks \" \"", "Square brackets [ ]"], ["int", "string", "number", "float"], ["alert", "boolean", "number", "object"], ["Curly braces { }", "Square brackets [ ]", "Quotation marks \" \"", "Parantheses ( )"], ["True", "False"]],
   correctAnswers: [2, 2, 0, 3, 0]
 };
