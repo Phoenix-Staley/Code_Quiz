@@ -18,10 +18,15 @@ header > p {
     margin: 10px;
 }
 
+strong {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .button {
     padding: 5px 15px;
     font-size: larger;
-    background-color: #000000;
+    background-color: #220044;
     color: white;
     border-radius: 10px;
     margin: 25px auto;
