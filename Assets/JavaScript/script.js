@@ -39,8 +39,11 @@ function clearScreen() {
   if (startEl) {
     startEl.remove();
   }
-  if (document.querySelector("button#againButton")) {
-    document.querySelector("button#againButton").remove();
+  if (document.querySelector("#againButton")) {
+    document.querySelector("#againButton").remove();
+  }
+  if (document.querySelector("#goBackButton")) {
+    document.querySelector("#goBackButton").remove();
   }
 
   while (holderEl.firstChild) {
@@ -57,13 +60,36 @@ function displayScores() {
     clearScreen();
     headerEl.textContent = "High Scores";
 
-    for (let i = 0; i < 5; i++) {
-      var text = i+1 + ". " + scores[i].name + " - " + scores[i].storedScore;
-      var scoreEl = document.createElement("h3");
-      scoreEl.innerHTML = text;
-      scoreEl.classList.add("highScore");
-      holderEl.appendChild(scoreEl);
+    // Displays top 5 scores
+    if (scores.length >= 5) {
+      for (let i = 0; i < 5; i++) {
+        var text = i+1 + ". " + scores[i].name + " - " + scores[i].storedScore;
+        var scoreEl = document.createElement("h3");
+        scoreEl.innerHTML = text;
+        scoreEl.classList.add("highScore");
+        holderEl.appendChild(scoreEl);
+      }
+    } else {
+      for (let i = 0; i < scores.length; i++) {
+        var text = i+1 + ". " + scores[i].name + " - " + scores[i].storedScore;
+        var scoreEl = document.createElement("h3");
+        scoreEl.innerHTML = text;
+        scoreEl.classList.add("highScore");
+        holderEl.appendChild(scoreEl);
+      }
     }
+
+    var buttonEl = document.createElement("button");
+    buttonEl.textContent = "Go Back";
+    buttonEl.classList.add("button");
+    buttonEl.id = "goBackButton";
+    buttonEl.onclick = function() {
+      clearScreen();
+      headerEl.textContent = "JavaScript Code Quiz";
+      descriptionEl.textContent = "This timed quiz will ask you various questions about JavaScript. \
+        The faster you complete the quiz, and the more answers you get right, the higher your score will be. Good luck!";
+    };
+    contentEl.appendChild(buttonEl);
   }
 }
 
