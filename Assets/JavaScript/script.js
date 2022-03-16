@@ -1,21 +1,4 @@
-// 1. Define variables for the elements to be used, the length of a game, and an object of the questions and answers ✅
-// 2. Create a timer interval that counts down ✅
-// 3. Make the description element empty ✅
-// 4. Define the function that will run upon starting the game ✅
-// 5. Define a variable for current question number ✅
-// 6. Change title to current question ✅
-// 7. Define functions for repeated code ✅
-// 7a. Define functions for getting the right and wrong answers ✅
-// 7b. Define function for going to the next question ✅
-//      Use a for loop to create buttons for possible answers, using an if statement to check if the current button will be the correct answer or not ✅
-// 7c. Define function for when the game ends that reacts based on how the game ended ✅
-// 7c1. Render a "play again" button ✅
-// 8. Replace the buttons with the score and an input box for the user's name ✅
-// 9. Record the user's name and score as an array of objects that hold the user's name and their score ✅
-// 10. Store scores in local storage ✅
-// 11. Sort scores using .sort ✅
-// 12. Make high scores appear in order of time completed when pressing the high scores button ✅
-
+// Defines the length of each game and some elements the game affects
 var timerLength = 60;
 var secondsEl = document.querySelector(".seconds");
 var highScoresEl = document.querySelector(".highScoresButton");
@@ -28,8 +11,8 @@ secondsEl.textContent = timerLength;
 
 var questionsAndAnswers = {
   questions: ["Strings must be enclosed within...", "What variable does JavaScript use to hold numeric values?", "Commonly used data types DO NOT include...", "The condition for an if / else statement is written between...", "TRUE OR FALSE: \"10\" !== 10"],
-  options: [["Pipes | |", "Curly braces { }", "Quotation Marks \" \"", "Square brackets [ ]"], ["int", "string", "number", "float"], ["alert", "boolean", "number", "object"], ["Curly braces { }", "Square brackets [ ]", "Quotation marks \" \"", "Parantheses ( )"], ["True", "False"]],
-  correctAnswers: [2, 2, 0, 3, 0]
+  options: [["Pipes | |", "Curly braces { }", "Quotation Marks \" \"", "Square brackets [ ]"], ["int", "string", "number", "float"], ["alert", "boolean", "number", "object"], ["Curly braces { }", "Square brackets [ ]", "Quotation marks \" \"", "Parantheses ( )"], ["True", "False"]], 
+  correctAnswersIndex: [2, 2, 0, 3, 0]
 };
 
 function clearScreen() {
@@ -123,67 +106,13 @@ function startGame() {
     }
   }
 
-  function loadQuestion() {
-    if (isRunning) {
-      clearScreen();
-
-      // Checks if there are questions left
-      if (currentQuestion < questionsAndAnswers.questions.length) {
-        headerEl.textContent = questionsAndAnswers.questions[currentQuestion];
-        
-        // Creates a button for each answer option
-        for (let i = 0; i < questionsAndAnswers.options[currentQuestion].length; i++) {
-          var text = i+1 + ". " + questionsAndAnswers.options[currentQuestion][i];
-          var buttonEl = document.createElement("button");
-          buttonEl.innerHTML = text;
-          buttonEl.classList.add("button");
-          holderEl.appendChild(buttonEl);
-          
-          if (i === questionsAndAnswers.correctAnswers[currentQuestion])  {
-            buttonEl.onclick = rightAnswer;
-          } else {
-            buttonEl.onclick = wrongAnswer;
-          }
-        }
-      } else {
-        endGame("Congrats!")
-      }
-    }
-  }
-
-  function onAnswer() {
-    // Creates a header to display whether the user's answer was correct
-    var correctnessEl = document.createElement("h3");
-    holderEl.appendChild(correctnessEl);
-
-    var nodes = holderEl.childNodes;
-
-    // Removes functionality of the buttons after the first answer
-    for (let i = 0; i < nodes.length; i++) {
-      nodes[i].onclick = function() {};
-    }
-
-    // Loads the next question after 1 second
-    var loadDelay = setInterval(function() {
-      loadQuestion();
-      clearInterval(loadDelay);
-    }, 1500);
-
-    return correctnessEl;
-  }
-
   function endGame(headerMessage) {
+    // The following elements will become a "play again" button and input for the user's name
     var endMessage = "";
-    var secondsUsed = timerLength-secondsLeft;
     var buttonEl = document.createElement("button");
     var inputEl = document.createElement("input");
     var submitEl = document.createElement("button");
     
-    isRunning = false;
-    clearScreen();
-    clearInterval(timerInterval);
-    headerEl.textContent = headerMessage;    
-
     function storeScore() {
       var scoresArray = JSON.parse(localStorage.getItem("highScores"));
 
@@ -202,6 +131,11 @@ function startGame() {
 
       inputEl.disabled = true;
     }
+
+    isRunning = false;
+    clearScreen();
+    clearInterval(timerInterval);
+    headerEl.textContent = headerMessage;
 
     // Dynamically changes the end game message based on score and whether time ran out
     if (score === 1 && secondsLeft > 0) {
@@ -234,6 +168,55 @@ function startGame() {
     holderEl.style.textAlign = "center";
 
     descriptionEl.textContent = endMessage;
+  }
+
+  function loadQuestion() {
+    if (isRunning) {
+      clearScreen();
+
+      // Checks if there are questions left
+      if (currentQuestion < questionsAndAnswers.questions.length) {
+        headerEl.textContent = questionsAndAnswers.questions[currentQuestion];
+        
+        // Creates a button for each answer option
+        for (let i = 0; i < questionsAndAnswers.options[currentQuestion].length; i++) {
+          var text = i+1 + ". " + questionsAndAnswers.options[currentQuestion][i];
+          var buttonEl = document.createElement("button");
+          buttonEl.innerHTML = text;
+          buttonEl.classList.add("button");
+          holderEl.appendChild(buttonEl);
+          
+          if (i === questionsAndAnswers.correctAnswersIndex[currentQuestion])  {
+            buttonEl.onclick = rightAnswer;
+          } else {
+            buttonEl.onclick = wrongAnswer;
+          }
+        }
+      } else {
+        endGame("Congrats!")
+      }
+    }
+  }
+
+  function onAnswer() {
+    // Creates a header to display whether the user's answer was correct
+    var correctnessEl = document.createElement("h3");
+    holderEl.appendChild(correctnessEl);
+
+    var nodes = holderEl.childNodes;
+
+    // Removes functionality of the buttons after the first answer
+    for (let i = 0; i < nodes.length; i++) {
+      nodes[i].onclick = function() {};
+    }
+
+    // Loads the next question after 1 second
+    var loadDelay = setInterval(function() {
+      loadQuestion();
+      clearInterval(loadDelay);
+    }, 1500);
+
+    return correctnessEl;
   }
 
   // Starts the time and loads the first question
