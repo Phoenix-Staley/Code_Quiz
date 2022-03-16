@@ -23,6 +23,11 @@ strong {
     text-decoration: underline;
 }
 
+button {
+    cursor: pointer;
+    transition: ease-out 200ms;
+}
+
 .button {
     padding: 5px 15px;
     font-size: larger;
@@ -34,7 +39,7 @@ strong {
 }
 
 .button:hover {
-    background-color: #333333;
+    background-color: #331155;
 }
 
 .content {
@@ -74,6 +79,7 @@ strong {
 }
 
 button.submit {
+    background-color: #426;
     display: inline-block;
     border-width: 1px;
     border-style: solid;
