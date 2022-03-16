@@ -223,7 +223,7 @@ function startGame() {
     inputEl.placeholder = "Jane Doe";
     inputEl.classList.add("inputBox");
 
-    submitEl.textContent = "Record score";
+    submitEl.textContent = "Save score";
     submitEl.classList.add("submit");
     submitEl.classList.add("button");
     submitEl.onclick = storeScore;
