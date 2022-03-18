@@ -193,7 +193,7 @@ function startGame() {
           }
         }
       } else {
-        endGame("Congrats!")
+        endGame("Congrats!");
       }
     }
   }
