@@ -64,8 +64,10 @@ button {
 .highScoresButton {
     border-width: 1px;
     border-style: dotted;
-    background-color: transparent;
+    background-color: #333333;
     padding-bottom: 3px;
+    width: 200%;
+    height: 200%;
 }
 
 .highScoresButton:hover {
