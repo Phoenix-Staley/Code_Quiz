@@ -39,11 +39,15 @@ function displayScores() {
   } else {
     var scores = JSON.parse(localStorage.getItem("highScores"));
 
+    console.log(scores);
+    
     clearScreen();
-    headerEl.textContent = "High Scores";
+    headerEl.textContent = "Top 5 High Scores:";
 
     // Displays top 5 or fewer scores
-    if (scores.length >= 5) {
+    if (scores === null) {
+
+    } else if (scores.length >= 5) {
       for (let i = 0; i < 5; i++) {
         var text = i+1 + ". " + scores[i].name + " - " + scores[i].storedScore;
         var scoreEl = document.createElement("h3");
@@ -61,6 +65,7 @@ function displayScores() {
       }
     }
 
+    console.log("Here!");
     var buttonEl = document.createElement("button");
     buttonEl.textContent = "Go Back";
     buttonEl.classList.add("button");
@@ -112,6 +117,7 @@ function startGame() {
     var buttonEl = document.createElement("button");
     var inputEl = document.createElement("input");
     var submitEl = document.createElement("button");
+    var submittedEl = document.createElement("h3");
     
     function storeScore() {
       var scoresArray = JSON.parse(localStorage.getItem("highScores"));
@@ -130,6 +136,9 @@ function startGame() {
       localStorage.setItem("highScores", JSON.stringify(scoresArray));
 
       inputEl.disabled = true;
+      submitEl.onclick = function() {};
+      submittedEl.innerHTML = "Submitted! :)"
+      holderEl.appendChild(submittedEl);
     }
 
     isRunning = false;
