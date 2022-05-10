@@ -6,4 +6,4 @@
 
 ![website example](./Assets/Images/startPageScreenshot.png) ![website example](./Assets/Images/questionScreenshot.png) ![website example](./Assets/Images/scoreScreenshot.png) ![website example](./Assets/Images/highScoresScreenshot.png)
 
-[Link to deployed page](https://phoenix-staley.github.io/Daily_Scheduler/)
+[Link to deployed page](https://phoenix-staley.github.io/javascript-quiz/)
